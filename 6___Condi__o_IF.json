@@ -1,0 +1,147 @@
+{
+  "name": "6 - Condição IF",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "adb5875f-b5ca-4054-ab84-aa08bbfc2e8b",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        720,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAllPeople",
+        "returnAll": true
+      },
+      "id": "307dc42b-88f1-4bfe-acb0-30548bb3b3d3",
+      "name": "Customer Datastore (n8n training)",
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        940,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f2c4dc18-5372-4523-b8b7-f181c62fbbee",
+              "leftValue": "={{ $json.country }}",
+              "rightValue": "US",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "033cb846-3d42-4ffd-82cd-7fc0725c2d99",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1160,
+        520
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "ce847365-0b96-409a-81ce-0bf7e844a6b2",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        360
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "4d9414cc-b59e-4dc3-85aa-4546077c3cdd",
+      "name": "No Operation, do nothing1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        620
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Customer Datastore (n8n training)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Datastore (n8n training)": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "43f07b09-69c0-4867-a2f1-8ac91eaa1804",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "SGF48DsjdhtPa8Dx",
+  "tags": [
+    {
+      "createdAt": "2024-10-28T17:25:54.536Z",
+      "updatedAt": "2024-10-28T17:25:54.536Z",
+      "id": "xr1jyx0fZ70Ok7DC",
+      "name": "Hiperautomação"
+    }
+  ]
+}

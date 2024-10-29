@@ -1,0 +1,137 @@
+{
+  "name": "7 - Loop Over Items",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "57f3b5f4-afab-4d5c-b619-420781efad2f",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        720,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAllPeople"
+      },
+      "id": "ee7527aa-b6ea-4df9-8910-30be6ec08a78",
+      "name": "Customer Datastore (n8n training)",
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        940,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d1397e9c-15fc-4f10-b63c-980e6a52a4b2",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1120,
+        540
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "f9a8b6b2-20b1-4e5c-b1e0-53f3708bd774",
+      "name": "Fazser alguma coisa...",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        400
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "ca567aed-fe31-462a-b5a6-20840a610a93",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1340,
+        560
+      ],
+      "webhookId": "f7224f3f-c909-4949-8dfa-a228d6484489"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Customer Datastore (n8n training)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Datastore (n8n training)": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Fazser alguma coisa...",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "415cbd8f-27a3-4c80-b940-4075411eb4e6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "yPo9e53P8vnr7Llq",
+  "tags": [
+    {
+      "createdAt": "2024-10-28T17:25:54.536Z",
+      "updatedAt": "2024-10-28T17:25:54.536Z",
+      "id": "xr1jyx0fZ70Ok7DC",
+      "name": "Hiperautomação"
+    }
+  ]
+}

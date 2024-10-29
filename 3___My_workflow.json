@@ -1,0 +1,69 @@
+{
+  "name": "3 - My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "9657cef8-0e54-4caa-b9b7-8d7c2eff8083",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        540
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "481942c1-e332-4ded-addb-938ca587408b",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        540
+      ],
+      "webhookId": "3ea99a9b-f12f-4825-a7c5-db0f04582dc0"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "01117117-e261-49d0-997d-edcdc1affc10",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "zlwT3IGfWlE2l0dA",
+  "tags": [
+    {
+      "createdAt": "2024-10-28T17:25:54.536Z",
+      "updatedAt": "2024-10-28T17:25:54.536Z",
+      "id": "xr1jyx0fZ70Ok7DC",
+      "name": "Hiperautomação"
+    }
+  ]
+}

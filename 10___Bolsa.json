@@ -1,0 +1,261 @@
+{
+  "name": "10 - Bolsa",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a8469760-50f1-4580-9282-e169a7922a59",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        440,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://cotacao.b3.com.br/mds/api/v1/instrumentQuotation/ibov",
+        "options": {}
+      },
+      "id": "9b4c9b62-20ac-453c-9c74-0838f95e6dcb",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        860,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "058609d3-ebfc-40f5-941e-b3b364ad21ac",
+              "leftValue": "={{ $json.Trad[0].scty.SctyQtn.curPrc }}",
+              "rightValue": 100000,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "59c2c97b-3126-48c0-9472-3fe3b11f0a19",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1100,
+        320
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "ec7226ef-bfb7-4e76-b3a3-e2451d65e5f9",
+      "name": "Comprar",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        180
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e599bc05-3f7c-4405-a1fe-568b31936faa",
+      "name": "Vender",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://cotacao.b3.com.br/mds/api/v1/instrumentPriceFluctuation/ibov",
+        "options": {}
+      },
+      "id": "86d10ac6-d6e9-4d74-b088-4ee6f541aaf3",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "SctyHghstIncrLst",
+        "options": {}
+      },
+      "id": "428b333c-aac1-4e96-bd45-2f6cac00ccd5",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "SctyHghstDrpLst",
+        "options": {}
+      },
+      "id": "bbb6aa41-0038-4675-99cf-f4e28368a04c",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "fileName": "altas"
+        }
+      },
+      "id": "83b88502-cf2e-435d-a82c-4a2ff905e19f",
+      "name": "Convert to File",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1340,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "fileName": "baixa"
+        }
+      },
+      "id": "89d0a6c3-5d34-4ef7-beab-e216386beb82",
+      "name": "Convert to File1",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1340,
+        860
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Comprar",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Vender",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c1e28351-7ddf-4f33-8a63-18389888bcc2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "Eb7dc2MH3pBZI6RR",
+  "tags": [
+    {
+      "createdAt": "2024-10-28T17:25:54.536Z",
+      "updatedAt": "2024-10-28T17:25:54.536Z",
+      "id": "xr1jyx0fZ70Ok7DC",
+      "name": "Hiperautomação"
+    }
+  ]
+}

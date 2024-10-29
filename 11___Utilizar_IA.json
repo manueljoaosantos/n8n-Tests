@@ -1,0 +1,114 @@
+{
+  "name": "11 - Utilizar IA",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "0059c91e-0bb0-435b-b3c9-be0c9a050c83",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        540
+      ],
+      "webhookId": "de7b278f-3d68-4a65-8358-a07f700bcec6"
+    },
+    {
+      "parameters": {},
+      "id": "7ae6578f-0074-4f0c-8cd7-1e2ca53586fa",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        940,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "44be23d0-282a-40c1-afbe-f3d967758668",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        960,
+        760
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "De0WdeVLwwDw1F2k",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "67dcd74f-d02d-4f26-b4c0-d82bc6c80c42",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        540
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "16fc3ab4-eada-4ddf-841d-d6f81a848c67",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "TqCVBBSISsWyw8yr",
+  "tags": [
+    {
+      "createdAt": "2024-10-28T17:25:54.536Z",
+      "updatedAt": "2024-10-28T17:25:54.536Z",
+      "id": "xr1jyx0fZ70Ok7DC",
+      "name": "Hiperautomação"
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+{
+  "name": "1 - Meu primeiro fluxo",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "73bacef9-47c0-478d-ad88-6e892ee1e016",
+      "name": "Repitir a cada 5 segundos",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        500,
+        580
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "78039682-fdde-4197-8e06-fc56c17ea965",
+      "name": "Aguardar",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        580
+      ],
+      "webhookId": "8ff2bf46-3584-4760-a6c1-9cb505dbb8de"
+    },
+    {
+      "parameters": {},
+      "id": "832d1bf3-7465-4803-85f7-acc4a5f33e78",
+      "name": "Não fazer nada",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        940,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "02cabd82-6eea-4e2c-9519-2ebeb09c6dbd",
+              "leftValue": "",
+              "rightValue": "value2",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f6233bd6-a713-40fa-95cd-685b177c1eef",
+      "name": "Gostou?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1160,
+        580
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e15e6b5c-31e6-406a-b902-b2435d773b29",
+      "name": "Gostei!!!",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        420
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "415bb803-759f-4ae7-adce-908d0670663f",
+      "name": "Não gostei!",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        660
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6c3e130f-827c-4c2b-b645-3093bf59f411",
+      "name": "Obrigado",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        540
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Repitir a cada 5 segundos": {
+      "main": [
+        [
+          {
+            "node": "Aguardar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aguardar": {
+      "main": [
+        [
+          {
+            "node": "Não fazer nada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Não fazer nada": {
+      "main": [
+        [
+          {
+            "node": "Gostou?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gostou?": {
+      "main": [
+        [
+          {
+            "node": "Gostei!!!",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Não gostei!",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Não gostei!": {
+      "main": [
+        [
+          {
+            "node": "Obrigado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gostei!!!": {
+      "main": [
+        [
+          {
+            "node": "Obrigado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "58958c5a-57a6-4ce9-bf24-7986820b5c58",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "O6yT7bVl7D9nPpw2",
+  "tags": [
+    {
+      "createdAt": "2024-10-28T17:25:54.536Z",
+      "updatedAt": "2024-10-28T17:25:54.536Z",
+      "id": "xr1jyx0fZ70Ok7DC",
+      "name": "Hiperautomação"
+    }
+  ]
+}
