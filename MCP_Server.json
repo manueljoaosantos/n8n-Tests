@@ -1,0 +1,257 @@
+{
+  "name": "MCP Server",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "b398fdfd-0b41-4c42-850f-d700583fa230"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        -200
+      ],
+      "id": "1d5e881a-42c2-44ef-8230-2e19dbf69daf",
+      "name": "MCP Server Trigger",
+      "webhookId": "b398fdfd-0b41-4c42-850f-d700583fa230"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "86c10408d979b89f06f2503a8c777ae3b6b4d2409b7750416bf55f67921af0b3@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Agente IA"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -240,
+        20
+      ],
+      "id": "6bbd70e0-50a8-4b01-bca3-d8b8869009b7",
+      "name": "Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "u8rrukmZSsJnqN2p",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1jxcZBbqv-vqngFRW-J3TQcx_pyR7F_N_C0JnRhOMMQI",
+          "mode": "list",
+          "cachedResultName": "Contactos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jxcZBbqv-vqngFRW-J3TQcx_pyR7F_N_C0JnRhOMMQI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Contactos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jxcZBbqv-vqngFRW-J3TQcx_pyR7F_N_C0JnRhOMMQI/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        60,
+        20
+      ],
+      "id": "48ff213a-736e-4001-9ef6-8dc637c7fc40",
+      "name": "Contactos",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "D7yZVoLO26qTbwlJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        200,
+        0
+      ],
+      "id": "2aeeed58-e1c3-46e6-b33a-36c63e969144",
+      "name": "Gmail1",
+      "webhookId": "dfc2600f-cc4f-45f4-9ff7-805dd6b679f9",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "oToX4n8VPuIb46Lf",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1jxcZBbqv-vqngFRW-J3TQcx_pyR7F_N_C0JnRhOMMQI",
+          "mode": "list",
+          "cachedResultName": "Contactos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jxcZBbqv-vqngFRW-J3TQcx_pyR7F_N_C0JnRhOMMQI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Contactos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jxcZBbqv-vqngFRW-J3TQcx_pyR7F_N_C0JnRhOMMQI/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nome": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Nome', ``, 'string') }}",
+            "Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}",
+            "Morada": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Morada', ``, 'string') }}",
+            "CodigoPostal": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('CodigoPostal', ``, 'string') }}",
+            "Telefone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Telefone', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Nome"
+          ],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Morada",
+              "displayName": "Morada",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CodigoPostal",
+              "displayName": "CodigoPostal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        -80,
+        20
+      ],
+      "id": "fc5b74ae-051b-489a-834a-7009607cc689",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "D7yZVoLO26qTbwlJ",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contactos": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail1": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "67b8a40c-c5c8-4e40-980e-f5f65ce401d6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fe136dfa7dd1ebe2195dca8bd98d848e25c4b61827468043f5ae2ab0e80aeaab"
+  },
+  "id": "jJJwJZYzocpvmkfb",
+  "tags": []
+}
