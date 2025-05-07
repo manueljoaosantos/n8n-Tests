@@ -1,0 +1,8 @@
+{
+  "name": "get_postgres_tables",
+  "description": "Use this tool to get the Postgres table.",
+  "color": "linear-gradient(rgb(54,135,66), rgb(161,181,50))",
+  "iconSrc": "",
+  "schema": "[]",
+  "func": "const fetch = require('node-fetch');\n\nconst url = 'http://localhost:5678/webhook/9721892b-0b86-4f1e-8ba9-63a5474596a4';\n\ntry {\n    const response = await fetch(url);\n    const data = await response.json();\n    return {\n        tool: \"get_postgres_tables\",\n        toolInput: { database: \"postgres\" },\n        toolOutput: data\n    };\n} catch (error) {\n    return {\n        tool: \"get_postgres_tables\",\n        toolInput: { database: \"postgres\" },\n        toolOutput: \"Erro: \" + error.message\n    };\n}\n"
+}

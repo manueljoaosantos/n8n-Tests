@@ -1,0 +1,154 @@
+{
+  "name": "Get Postgres Tables",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "9721892b-0b86-4f1e-8ba9-63a5474596a4",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2524be7d-4a5a-4b06-833e-e96d78f8e0ea",
+      "name": "Webhook",
+      "webhookId": "9721892b-0b86-4f1e-8ba9-63a5474596a4"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "e1f2367e-2389-496e-9fb6-af957f1cd48e",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "select table_name\nfrom information_schema.tables\nwhere table_schema  ='public'\nand table_type ='BASE TABLE'\norder by table_name;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        220,
+        0
+      ],
+      "id": "9b948e9e-6a08-4f43-be5b-9d792fee0dbe",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "vAW446yotwYgCYxJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "table_name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        0
+      ],
+      "id": "7aca5dff-026f-4373-b27c-bb2a1dfa8463",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "\nreturn _input.all()"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "ae8d1e85-fa36-47cb-b1f6-7859f9974472",
+      "name": "Code1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "17536c67-7ff8-4ee1-8d17-61e25ea7babc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c0e59be407a96ee7e9a61711c08d00ee197dbfa1a07ef2ffc41fd0504b80a96a"
+  },
+  "id": "EDviQiYWxuAf3L9q",
+  "tags": []
+}
